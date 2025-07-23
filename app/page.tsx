@@ -92,6 +92,7 @@ export default function SumipackLanding() {
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
         style={{
           transform: `translateY(${scrollY * 0.5}px)`,
+          zindex: 0,
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 to-black"></div>
