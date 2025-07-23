@@ -36,6 +36,30 @@
     opacity: 1 !important;
     transform: translateX(0) translateY(0) !important;
   }
+
+  .container-responsive {
+    @apply px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16;
+  }
+
+  .text-responsive-sm {
+    @apply text-sm xs:text-base md:text-lg;
+  }
+
+  .text-responsive-md {
+    @apply text-base xs:text-lg md:text-xl lg:text-2xl;
+  }
+
+  .text-responsive-lg {
+    @apply text-lg xs:text-xl md:text-2xl lg:text-3xl;
+  }
+
+  .space-responsive {
+    @apply space-y-4 md:space-y-6 lg:space-y-8;
+  }
+
+  .grid-responsive-2 {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8;
+  }
 }
 
 /* Smooth scrolling */
@@ -65,4 +89,109 @@ html {
 .parallax {
   transform: translateZ(0);
   will-change: transform;
+}
+
+/* Better touch targets for mobile */
+@media (max-width: 768px) {
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* Improved scrolling on mobile */
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 80px;
+  }
+
+  .animate-on-scroll {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Better image loading */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Prevent horizontal scroll */
+body {
+  overflow-x: hidden;
+}
+
+/* Mobile menu z-index fix */
+.mobile-menu-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 9999 !important;
+  background: rgba(0, 0, 0, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Prevent body scroll when menu is open */
+.menu-open {
+  overflow: hidden;
+}
+
+/* Better mobile menu animations */
+@media (max-width: 768px) {
+  .mobile-menu-panel {
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .mobile-menu-panel.open {
+    transform: translateX(0);
+  }
+}
+
+/* Ensure header stays below mobile menu */
+header {
+  z-index: 40;
+}
+
+/* Mobile menu should be above everything */
+.mobile-menu {
+  z-index: 100;
+}
+
+/* Mobile menu fixes */
+.mobile-menu-open {
+  overflow: hidden !important;
+}
+
+/* Mobile menu animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.mobile-menu-overlay {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Prevent any content from showing through */
+.mobile-menu-content {
+  position: relative;
+  z-index: 10000;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
