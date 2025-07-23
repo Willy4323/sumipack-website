@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import {
   Leaf,
   Shield,
@@ -20,6 +19,7 @@ import {
 import Link from "next/link"
 import { useLanguage } from "@/contexts/language-context"
 import { LanguageSelector } from "@/components/language-selector"
+import { MobileMenu } from "@/components/mobile-menu"
 
 export default function SumipackLanding() {
   const [scrollY, setScrollY] = useState(0)
@@ -58,7 +58,7 @@ export default function SumipackLanding() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-emerald-500/20">
+      <header className="fixed top-0 w-full z-30 bg-black/80 backdrop-blur-md border-b border-emerald-500/20">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="text-2xl font-bold text-emerald-400">SUMIPACK</div>
           <nav className="hidden md:flex space-x-8">
@@ -78,9 +78,15 @@ export default function SumipackLanding() {
               {t("nav.contact")}
             </Link>
           </nav>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 md:space-x-4">
             <LanguageSelector />
-            <Button className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold">{t("nav.quote")}</Button>
+            <Button
+              onClick={() => document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth" })}
+              className="hidden md:inline-flex bg-emerald-500 hover:bg-emerald-600 text-black font-semibold"
+            >
+              {t("nav.quote")}
+            </Button>
+            <MobileMenu />
           </div>
         </div>
       </header>
@@ -91,27 +97,35 @@ export default function SumipackLanding() {
         ref={heroRef}
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
         style={{
-          transform: `translateY(${scrollY * 0.5}px)`,
-          zindex: 0,
+          zIndex: 1,
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 to-black"></div>
         <div className="relative z-10 text-center max-w-5xl mx-auto px-4">
-          <Badge className="mb-6 bg-emerald-500/20 text-emerald-400 border-emerald-500/30">{t("hero.badge")}</Badge>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-emerald-400 bg-clip-text text-transparent">
+          <div className="mb-6 inline-block px-4 py-2 text-sm text-emerald-400/80 bg-emerald-500/10 rounded-full border border-emerald-500/20 font-medium">
+            {t("hero.badge")}
+          </div>
+          <h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-white to-emerald-400 bg-clip-text text-transparent">
             {t("hero.title")}
           </h1>
-          <p className="text-xl md:text-2xl mb-6 text-gray-300 leading-relaxed">{t("hero.subtitle")}</p>
-          <p className="text-lg md:text-xl mb-8 text-emerald-400 leading-relaxed">{t("hero.highlight")}</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold">
+          <p className="text-lg xs:text-xl md:text-2xl mb-4 md:mb-6 text-gray-300 leading-relaxed px-4 md:px-0">
+            {t("hero.subtitle")}
+          </p>
+          <p className="text-base xs:text-lg md:text-xl mb-6 md:mb-8 text-emerald-400 leading-relaxed px-4 md:px-0">
+            {t("hero.highlight")}
+          </p>
+          <div className="flex flex-col xs:flex-row gap-3 md:gap-4 justify-center px-4 md:px-0">
+            <Button
+              size="lg"
+              className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold text-sm xs:text-base"
+            >
               {t("hero.exploreProducts")}
               <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="border-emerald-500 text-emerald-400 hover:bg-emerald-500/10 bg-transparent"
+              className="border-emerald-500 text-emerald-400 hover:bg-emerald-500/10 bg-transparent text-sm xs:text-base"
             >
               {t("hero.learnMore")}
             </Button>
@@ -119,7 +133,7 @@ export default function SumipackLanding() {
         </div>
 
         {/* Floating Elements */}
-        <div className="absolute top-20 left-10 animate-bounce">
+        <div className="absolute top-20 left-10 animate-pulse">
           <Leaf className="h-8 w-8 text-emerald-400 opacity-60" />
         </div>
         <div className="absolute bottom-32 right-16 animate-pulse">
@@ -130,9 +144,9 @@ export default function SumipackLanding() {
       {/* About Section */}
       <section id="quienes-somos" ref={aboutRef} className="py-20 bg-gray-900/30">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="animate-on-scroll opacity-0 translate-x-[-50px] transition-all duration-700">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <h2 className="text-3xl xs:text-4xl md:text-5xl font-bold mb-6">
                 {t("about.title")} <span className="text-emerald-400">{t("about.titleHighlight")}</span>
               </h2>
               <p className="text-xl text-gray-300 mb-6 leading-relaxed">{t("about.description")}</p>
@@ -168,7 +182,7 @@ export default function SumipackLanding() {
       <section id="productos" ref={productsRef} className="py-20 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-on-scroll opacity-0 translate-y-8 transition-all duration-700">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <h2 className="text-3xl xs:text-4xl md:text-5xl font-bold mb-6">
               {t("products.title")} <span className="text-emerald-400">{t("products.titleHighlight")}</span>
             </h2>
           </div>
@@ -189,23 +203,37 @@ export default function SumipackLanding() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="grid grid-cols-2 gap-3 mb-6">
-                      <div className="relative group overflow-hidden rounded-lg">
+                  <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+                    <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 mb-6">
+                      <div className="relative group overflow-hidden rounded-lg aspect-video">
                         <img
                           src="/images/absorbent-pads.png"
                           alt="Paños absorbentes industriales"
-                          className="w-full h-32 object-cover transition-transform duration-300 group-hover:scale-110"
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                          loading="lazy"
+                          sizes="(max-width: 475px) 100vw, (max-width: 768px) 50vw, 25vw"
                         />
                         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                        <div className="absolute bottom-2 left-2 right-2">
+                          <p className="text-white text-xs xs:text-sm font-medium bg-black/50 backdrop-blur-sm rounded px-2 py-1">
+                            Paños Absorbentes
+                          </p>
+                        </div>
                       </div>
-                      <div className="relative group overflow-hidden rounded-lg">
+                      <div className="relative group overflow-hidden rounded-lg aspect-video">
                         <img
                           src="/images/absorbent-booms.png"
                           alt="Boas absorbentes para contención"
-                          className="w-full h-32 object-cover transition-transform duration-300 group-hover:scale-110"
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                          loading="lazy"
+                          sizes="(max-width: 475px) 100vw, (max-width: 768px) 50vw, 25vw"
                         />
                         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                        <div className="absolute bottom-2 left-2 right-2">
+                          <p className="text-white text-xs xs:text-sm font-medium bg-black/50 backdrop-blur-sm rounded px-2 py-1">
+                            Boas Absorbentes
+                          </p>
+                        </div>
                       </div>
                     </div>
                     <div className="space-y-6">
@@ -263,7 +291,7 @@ export default function SumipackLanding() {
                     <h4 className="text-lg font-semibold text-emerald-400 mb-3">
                       {t("products.cleaning.types.title")}
                     </h4>
-                    <ul className="grid md:grid-cols-2 gap-2">
+                    <ul className="grid xs:grid-cols-1 md:grid-cols-2 gap-2">
                       {t("products.cleaning.types.items").map((item: string, index: number) => (
                         <li key={index} className="flex items-center text-gray-300">
                           <CheckCircle className="h-4 w-4 text-emerald-400 mr-2" />
@@ -298,7 +326,7 @@ export default function SumipackLanding() {
                     <h4 className="text-lg font-semibold text-emerald-400 mb-3">
                       {t("products.agriculture.benefits.title")}
                     </h4>
-                    <ul className="grid md:grid-cols-2 gap-2">
+                    <ul className="grid xs:grid-cols-1 md:grid-cols-2 gap-2">
                       {t("products.agriculture.benefits.items").map((item: string, index: number) => (
                         <li key={index} className="flex items-center text-gray-300">
                           <CheckCircle className="h-4 w-4 text-emerald-400 mr-2" />
@@ -373,7 +401,7 @@ export default function SumipackLanding() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-700">
-              <h2 className="text-4xl md:text-5xl font-bold mb-8">
+              <h2 className="text-3xl xs:text-4xl md:text-5xl font-bold mb-8">
                 <span className="text-emerald-400">{t("sustainability.title")}</span>
               </h2>
               <p className="text-xl text-gray-300 mb-6 leading-relaxed">{t("sustainability.description")}</p>
@@ -387,7 +415,7 @@ export default function SumipackLanding() {
       <section className="py-20">
         <div className="container mx-auto px-4 text-center">
           <div className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-700">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <h2 className="text-3xl xs:text-4xl md:text-5xl font-bold mb-6">
               {t("customSolutions.title")}{" "}
               <span className="text-emerald-400">{t("customSolutions.titleHighlight")}</span>
             </h2>
@@ -406,7 +434,7 @@ export default function SumipackLanding() {
       <section id="contacto" className="py-20 bg-gradient-to-r from-emerald-900/20 to-black">
         <div className="container mx-auto px-4 text-center">
           <div className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-700">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-emerald-400">{t("contact.title")}</h2>
+            <h2 className="text-3xl xs:text-4xl md:text-5xl font-bold mb-6 text-emerald-400">{t("contact.title")}</h2>
             <p className="text-2xl text-gray-300 mb-4">{t("contact.question")}</p>
             <p className="text-xl text-gray-400 mb-8">{t("contact.subtitle")}</p>
 
@@ -431,7 +459,15 @@ export default function SumipackLanding() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold">
+                <Button
+                  size="lg"
+                  className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold"
+                  onClick={() =>
+                    window.open(
+                      "mailto:contacto@sumipack.cl?subject=Cotización SUMIPACK&body=Hola, me interesa cotizar productos de SUMIPACK.%0D%0A%0D%0AProducto de interés:%0D%0ACantidad:%0D%0AEmpresa:%0D%0ATeléfono:%0D%0A%0D%0AGracias",
+                    )
+                  }
+                >
                   Enviar Consulta
                   <Mail className="ml-2 h-4 w-4" />
                 </Button>
@@ -439,6 +475,9 @@ export default function SumipackLanding() {
                   size="lg"
                   variant="outline"
                   className="border-emerald-500 text-emerald-400 hover:bg-emerald-500/10 bg-transparent"
+                  onClick={() =>
+                    window.open("https://wa.me/56912345678?text=Hola, me interesa cotizar productos de SUMIPACK")
+                  }
                 >
                   WhatsApp
                   <Phone className="ml-2 h-4 w-4" />
