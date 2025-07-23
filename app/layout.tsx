@@ -9,7 +9,6 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "SUMIPACK - Sustainable Solutions",
   description: "Innovative disposable solutions for industry, agriculture and foodservice",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
